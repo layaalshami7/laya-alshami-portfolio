@@ -67,7 +67,7 @@
    scroll-padding-top = leaves room for the sticky header, so a title
    is not hidden under it after clicking a menu link. */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto !important;
   scroll-padding-top: 90px;
 }
 
@@ -802,6 +802,26 @@ nav a:focus-visible::after {
   font-weight: 600;
   letter-spacing: .02em;
   transition: transform .35s cubic-bezier(.2, .7, .2, 1);
+}
+
+/* Keep the IntelliJ IDEA letters stacked and centered inside the circle. */
+.chip i.intellij-icon {
+  line-height: 1;
+}
+
+.intellij-mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  font-size: .58rem;
+  line-height: .68;
+  letter-spacing: 0;
+}
+
+.intellij-mark span:first-child {
+  font-size: .62rem;
 }
 
 /* RADIO-BUTTON TRICK (no JavaScript):
@@ -1689,4 +1709,77 @@ footer .copy {
   font-style: normal !important;
   font-variant: normal !important;
   font-synthesis: none;
+}
+
+
+/* Fixed back-to-top control: a simple vector arrow that keeps its colour on phones. */
+.back-to-top {
+  position: fixed;
+  right: 22px;
+  bottom: max(22px, env(safe-area-inset-bottom));
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--sand);
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--mocha);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 4px 14px rgba(73, 55, 45, .12);
+}
+
+.back-to-top svg {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  background: var(--alt);
+  color: var(--olive);
+}
+
+/* Show a small label on hover/focus so visitors know the arrow returns to the top. */
+.back-to-top::after {
+  content: "Back to top";
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 7px 11px;
+  border: 1px solid var(--sand);
+  border-radius: 7px;
+  background: var(--bg);
+  color: var(--mocha);
+  font-family: var(--sans), Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(73, 55, 45, .10);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.back-to-top:hover::after,
+.back-to-top:focus-visible::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 480px) {
+  .back-to-top {
+    right: 14px;
+    bottom: max(14px, env(safe-area-inset-bottom));
+    width: 42px;
+    height: 42px;
+  }
 }
